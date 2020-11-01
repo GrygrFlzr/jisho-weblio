@@ -1,0 +1,1 @@
+Uses Jisho to lookup romaji, searches kanji on Weblio.
