@@ -29,8 +29,13 @@
 				});
 			let res = await fetch(url, { signal: controller.signal });
 			data = await res.json();
-			selection = data.data[0].slug;
-			status = "ready";
+			if (data.data.length > 0) {
+				selection = data.data[0].slug;
+				status = "ready";
+			} else {
+				status = "empty";
+				selection = undefined;
+			}
 		}, 300);
 	};
 </script>
@@ -40,8 +45,10 @@
 		<p>Enter a search term:</p>
 	{:else if status === 'loading'}
 		<p>Loading...</p>
-	{:else}
+	{:else if status === 'ready'}
 		<p>Search result for:</p>
+	{:else if status === 'empty'}
+		<p>No results found on Jisho.</p>
 	{/if}
 
 	<label>
